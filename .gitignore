@@ -1,0 +1,9 @@
+.clj-kondo/.cache
+.cpcache/
+*.swp
+*.swo
+*~
+.DS_Store
+.idea/
+.vscode/
+.nrepl-port
