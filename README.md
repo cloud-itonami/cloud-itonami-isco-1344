@@ -81,16 +81,16 @@ human-in-the-loop interrupt/resume via checkpointing.
                                            +-> :hold               (:hard? true)
 ```
 
-- `src/welfare/store.cljc` — `Store` protocol + `MemStore`:
+- `src/welfare/store.kotoba` — `Store` protocol + `MemStore`:
   registered agencies, committed records, an append-only audit ledger.
-- `src/welfare/advisor.cljc` — `Advisor` protocol; `mock-advisor`
+- `src/welfare/advisor.kotoba` — `Advisor` protocol; `mock-advisor`
   (deterministic, default) proposes a welfare management operation from a
   request; `llm-advisor` wraps a `langchain.model/ChatModel` — either
   way the advisor only ever produces a `:propose`-effect proposal,
   never a committed record, never a case-eligibility determination,
   and LLM parse failures always yield `confidence 0.0` (forces escalation,
   never fabricated confidence).
-- `src/welfare/governor.cljc` — `WelfareGovernor/check`: a pure
+- `src/welfare/governor.kotoba` — `WelfareGovernor/check`: a pure
   function, wired as its own `:govern` node. Hard invariants
   (unregistered agency, a proposal whose `:effect` isn't `:propose`,
   or a proposal attempting case-authority outside the allowlist)
@@ -100,7 +100,7 @@ human-in-the-loop interrupt/resume via checkpointing.
   on explicit human approval (`actor/approve!`), matching the README's
   robotics-premise statement that worker-safety escalations and low-confidence
   recommendations always require human sign-off.
-- `src/welfare/actor.cljc` — `build-graph`, `run-request!`,
+- `src/welfare/actor.kotoba` — `build-graph`, `run-request!`,
   `approve!`: the `langgraph.graph/state-graph` wiring itself.
 
 ```bash
